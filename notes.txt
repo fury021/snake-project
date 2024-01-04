@@ -39,6 +39,32 @@ agent puts everything together:
 	Linear_QNet(DQN)
 	- model.predict(state)
 		->action
+--------------------------------------------------------------------------------------------------------
+
+Reward: 
+	- eat food  = 	+10 
+	- game over = 	-10 
+	- else      = 	 0
+
+Action: 
+- only three different types of movements to avoid 180 degree turns - because that would end the gae by the snake eating itself
+ 
+	[1,0,0] -> straight			//depends on the current direction 
+	[0,1,0] -> right turn			//depends on the current direction 
+	[0,0,1] -> left turn			//depends on the current direction 
+
+State:
+- it has 11 values 
+that is the snake has to know about these values at each point in time.
+[danger straight, danger right, danger left, 
+
+ direction left, direction right, direction up, direction down,
+
+ food left, food right,
+ food up, food down ]
+
+all of these are boolean values.
+
 
 
 
