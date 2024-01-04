@@ -1,0 +1,51 @@
+part1: Theory
+part2: Implement the game environment (pygame)
+part3: Implement the agent (game env + model)
+part4: Implement the model (pytorch)
+
+Part 1 Theory:
+
+Reinforcement learning :- 
+RL is an area of machine learning concerned with how software agents ought to take actions in an environment in order to maximize the notion of cumulative reward.
+OR
+RL is teaching a software agent how to behave in an environment by telling it how good it is doing.
+
+
+Deep Q learning:
+This approach extends reinforcement learning by using a deep neural network to predict the actions.
+
+
+Notes: 
+agent puts everything together:
+
+	Agent 
+	- game
+	- model
+	Training: (loop)
+		- state = get_state(game)				//based on the state we calculate the state 
+		- action = get_move(state)				//based on the state we calculate the next action 
+			- model.predict()
+		- reward, game_over, score = game.play_step(action)	//with each action store these values.	
+		- remember						//store the new state, old state, game_over state and the score
+		- model.train()						//with these then we train our model, he calls it linear_q net (a neural net with a few linear layers)
+ 
+
+
+	Game (Pygame)
+	-play_step(action)
+		-> reward, game_over, score
+	
+	Model (pytorch)
+	Linear_QNet(DQN)
+	- model.predict(state)
+		->action
+
+
+
+
+
+
+
+
+
+
