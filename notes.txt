@@ -67,15 +67,31 @@ all of these are boolean values.
 
 
 
+diagram:
+
+
+         	
+	                            MODEL
+				      | 
+	      ___________________________________________________
+	      |							|
+STATE  ------> INPUT LAYER ----- HIDDEN LAYER ----- OUTPUT LAYER ------> ACTION 
+		  (11)					(3)
 
 
 
 
+Deep Q Learning:
+Q value = Quality of Action
 
+0. Init Q Value (= init model) 			//initialize model with some random params
+Loop:-
+1. Choose action (model.predict(state))		//choose the action by calling model.predict(state) or choose a random move sometimes(mostly done in the beginning of the game)
+2. Perform action 				//
+3. Measure reward				//measure the reward and update the q value accordingly and use that to train the model
+4. Update Q value (+ train model)
 
-
-
-
+To train the model you have a loss function which you are trying to optimise or minimize with each game attempt.
 
 
 
