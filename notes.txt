@@ -93,7 +93,7 @@ Loop:-
 
 To train the model you have a loss function which you are trying to optimise or minimize with each game attempt.
 
-
+36 mins. 134 line number
 
 
 
