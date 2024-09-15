@@ -36,7 +36,7 @@ agent puts everything together:
 		-> reward, game_over, score
 	
 	Model (pytorch)
-	Linear_QNet(DQN)
+	Linear_QNet(DQN)				feed forward neural net with a few layers
 	- model.predict(state)
 		->action
 --------------------------------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ Reward:
 	- else      = 	 0
 
 Action: 
-- only three different types of movements to avoid 180 degree turns - because that would end the gae by the snake eating itself
+- only three different types of movements to avoid 180 degree turns - because that would end the game by the snake eating itself
  
 	[1,0,0] -> straight			//depends on the current direction 
 	[0,1,0] -> right turn			//depends on the current direction 
@@ -55,7 +55,7 @@ Action:
 
 State:
 - it has 11 values 
-that is the snake has to know about these values at each point in time.
+that is the snake has to know about these values at each point in time. i.e. its environment at every movement point to make the correct choice
 [danger straight, danger right, danger left, 
 
  direction left, direction right, direction up, direction down,
@@ -64,6 +64,8 @@ that is the snake has to know about these values at each point in time.
  food up, food down ]
 
 all of these are boolean values.
+These values represent the normal screen field of view i.e. assume snake is going from the bottom to the top, if the snake is one step away from the top of the screen (field of play)
+then danger straight value in the above matrix will be 1.  
 
 
 
@@ -71,28 +73,41 @@ diagram:
 
 
          	
-	                            MODEL
-				      | 
+	                              MODEL
+				     			    |  
 	      ___________________________________________________
-	      |							|
+	      |							|						|
 STATE  ------> INPUT LAYER ----- HIDDEN LAYER ----- OUTPUT LAYER ------> ACTION 
 		  (11)					(3)
 
-
+we have 11 different states/ boolean values and the hidden layer does the magic and the based on the computation we predict which of the 3 moves we should do next.
 
 
 Deep Q Learning:
-Q value = Quality of Action
+Q value = Quality of Action				//we are trying to improve this value
 
 0. Init Q Value (= init model) 			//initialize model with some random params
 Loop:-
-1. Choose action (model.predict(state))		//choose the action by calling model.predict(state) or choose a random move sometimes(mostly done in the beginning of the game)
+1. Choose action (model.predict(state))		//choose the action by calling model.predict(state) or choose a random move sometimes(mostly done in the beginning of the game, since we dont have enough data yet)
 2. Perform action 				//
 3. Measure reward				//measure the reward and update the q value accordingly and use that to train the model
 4. Update Q value (+ train model)
 
 To train the model you have a loss function which you are trying to optimise or minimize with each game attempt.
 
+Bellman Equation:
+NewQ(s,a) = Q(s,a) + α[R(s,a) + γmaxQ'(s',a') - Q(s,a)]
+
+
+Simplified (in pseudocode):
+Q = model.predict(state0)
+Q_new = R + γ * max(Q(state1))
+
+i.e. new Q value = old Q value + (the discount rate * max value of Q possible at state 1)
+
+Loss Function:
+MSE  (mean squared error):
+loss = (Q_new - Q)^2
 
 57 mins
 
