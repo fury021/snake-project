@@ -2,7 +2,7 @@ import torch
 import random 
 import numpy as np
 from collections import deque
-from game import SnakeGameAI,Point,Direction
+from game import SnakeGameAI, Point, Direction
 
 MAX_MEMORY = 100_000    #
 BATCH_SIZE = 1000       #
